@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>O(n) example</title>
+
+</head>
+<body>
+
+    <p>O(n) example </p>
+        <script>
+            function exampleLinear(n) {
+                for (var i = 0 ; i < n; i++ ) {
+                    console.log(i);
+                }
+            }
+            exampleLinear(10);
+            
+        </script>
+
+
+<pre id="output"></pre><a href="index.html">All demos</a><script>document.getElementById('output').textContent = Array.from({length:10}, (_,i)=>i).join('\n');</script></body>
+</html>

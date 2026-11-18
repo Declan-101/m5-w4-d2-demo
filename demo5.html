@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Delete an object property</title></head>
+<body>
+
+<p>We will delete object properties with the delete keyword.</p>
+
+<p id="demo"></p>
+
+<script>
+var person = {
+  firstname: "West",
+  lastname: "Cliff",
+  age: 80,
+  eyecolor: "blue"
+};
+
+delete person.age;
+document.getElementById('demo').textContent = person.firstname + " is " + person.age + " years old.";
+console.log('After deleting age:', person);
+
+
+
+</script>
+
+<button id="before">Render before deleting</button> <button id="after">Delete before rendering</button>
+<pre id="output" aria-live="polite">person.age is undefined. The property has been deleted before rendering.</pre><a href="index.html">All demos</a>
+<script>
+function show(deleteFirst) { person.age = 80; if(deleteFirst) delete person.age; document.getElementById('demo').textContent = person.firstname + ' is ' + person.age + ' years old.'; if(!deleteFirst) delete person.age; document.getElementById('output').textContent = 'person.age: ' + person.age + '\n' + (deleteFirst ? 'Deleted age before rendering: text uses undefined.' : 'Rendered first, then deleted age: the existing text stays at 80.'); console.log('person.age:', person.age); }
+document.getElementById('before').onclick = () => show(false); document.getElementById('after').onclick = () => show(true);
+</script></body>
+</html>

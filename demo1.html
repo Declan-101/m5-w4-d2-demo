@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo 1</title>
+
+  <style>
+    * { border: 2px solid #dedede; padding: 15px; margin: 15px; }
+    html { margin: 0; padding: 0; }
+    body { max-width: 600px; font-family: sans-serif; color: #333; }
+  </style>
+</head>
+
+<body>
+  <h1>Shark World</h1>
+  <p>The world's leading source on <strong>shark</strong> related information.</p>
+  <h2>Types of Sharks</h2>
+  <ul>
+    <li>Hammerhead</li>
+    <li>Tiger</li>
+    <li>Great White</li>
+  </ul>
+
+  <script>
+    const h1 = document.getElementsByTagName('h1')[0];
+    const p = document.getElementsByTagName('p')[0];
+    const ul = document.getElementsByTagName('ul')[0];
+    
+  </script>
+<section id="controls" style="border:0;padding:0;margin:15px">
+<h2>DOM traversal exercise</h2><p>Run each step and inspect the result below or in the browser console.</p>
+<div id="steps"></div><pre id="result" aria-live="polite" style="white-space:pre-wrap"></pre>
+<a href="index.html">All demos</a></section>
+<script>
+const result = document.getElementById('result');
+const steps = [
+ ['p.parentNode', () => p.parentNode.outerHTML.split('<script>')[0]],
+ ['p.parentNode.parentNode', () => p.parentNode.parentNode.tagName],
+ ['ul.childNodes', () => Array.from(ul.childNodes, node => node.nodeName + (node.nodeType === 3 ? ' (whitespace)' : ': ' + node.textContent))],
+ ["ul.firstElementChild.style.background = 'yellow'", () => { ul.firstElementChild.style.background = 'yellow'; return ul.firstElementChild.outerHTML; }],
+ ["for (let element of ul.children) { element.style.background = 'yellow'; }", () => { for (let element of ul.children) element.style.background = 'yellow'; return Array.from(ul.children, node => node.outerHTML); }],
+ ['for (let element of p.childNodes) { console.log(element); }', () => { for(let element of p.childNodes) console.log(element); return Array.from(p.childNodes, node => node.nodeName + ': ' + node.textContent); }],
+ ["document.body.children[3].lastElementChild.style.background = 'purple'", () => { document.body.children[3].lastElementChild.style.background = 'purple'; return ul.lastElementChild.outerHTML; }]
+];
+steps.forEach(([label, run], index) => { const button = document.createElement('button'); button.textContent = 'Step ' + (index + 1); button.title = label; button.style.cssText = 'padding:8px;margin:4px'; button.onclick = () => { const value = run(); console.log(label, value); result.textContent = label + '\n\n' + (Array.isArray(value) ? value.join('\n') : value); }; document.getElementById('steps').append(button); });
+</script></body>
+
+</html>

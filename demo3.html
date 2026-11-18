@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>O(n!) example</title>
+
+</head>
+<body>
+
+    <p>O(n!) example </p>
+<p>The starter repeats every recursive call n times, giving factorial-time growth. A worker keeps this expensive demonstration responsive.</p>
+<button id="run">Run factorial(1), factorial(10), factorial(12)</button> <button id="cancel" disabled>Cancel</button>
+<pre id="output" aria-live="polite">Ready.</pre><a href="index.html">All demos</a>
+<script>
+let worker;
+const output = document.getElementById('output');
+const runButton = document.getElementById('run');
+const cancelButton = document.getElementById('cancel');
+function finish() { worker.terminate(); runButton.disabled = false; cancelButton.disabled = true; }
+runButton.onclick = () => { output.textContent = ''; runButton.disabled = true; cancelButton.disabled = false; const inputs = [1,10,12]; worker = new Worker('factorial-worker.js');
+worker.onmessage = ({data}) => { console.log('factorial(' + data.n + ') =', data.value, data.milliseconds.toFixed(2) + ' ms'); output.textContent += 'factorial(' + data.n + ') = ' + data.value + ' | ' + data.milliseconds.toFixed(2) + ' ms\n'; if(inputs.length) { const n = inputs.shift(); output.textContent += 'Running factorial(' + n + ')…\n'; worker.postMessage(n); } else { output.textContent += 'Complete. Timings depend on the computer.'; finish(); } };
+worker.onerror = event => { output.textContent += 'Error: ' + event.message; finish(); };
+worker.postMessage(inputs.shift()); };
+cancelButton.onclick = () => { finish(); output.textContent += '\nCancelled.'; };
+</script>
+
+
+</body>
+</html>
